@@ -1,8 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
+import { useState } from "react";
+import LoginModal from "./LoginModal";
+import SearchModal from "./SearchModal";
 
 export default function MainContent() {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   return (
     <main className="bg-gray-50">
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
@@ -48,7 +53,10 @@ export default function MainContent() {
               <p className="text-gray-600 mb-4">
                 Личные кабинеты, документооборот, отчетность
               </p>
-              <Button className="w-full bg-blue-600 hover:bg-blue-700">
+              <Button
+                className="w-full bg-blue-600 hover:bg-blue-700"
+                onClick={() => setIsLoginOpen(true)}
+              >
                 <Icon name="LogIn" size={16} className="mr-2" />
                 Войти в систему
               </Button>
@@ -70,7 +78,11 @@ export default function MainContent() {
               <p className="text-gray-600 mb-4">
                 Законы, постановления, приказы министерства
               </p>
-              <Button variant="outline" className="w-full">
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={() => setIsSearchOpen(true)}
+              >
                 <Icon name="Search" size={16} className="mr-2" />
                 Найти документ
               </Button>
@@ -145,6 +157,12 @@ export default function MainContent() {
           </div>
         </div>
       </div>
+
+      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+      <SearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
     </main>
   );
 }
